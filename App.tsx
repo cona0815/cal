@@ -4,7 +4,7 @@ import { INITIAL_PLAYERS, MAX_NAME_LENGTH, HORSE_YEAR_BLESSINGS } from './consta
 import Setup from './components/Setup';
 import RoundInput from './components/RoundInput';
 import DealerRoulette from './components/DealerRoulette';
-import { History, RotateCcw, Trash2, Trophy, Coins, Settings, Download, Eraser, Crown, CircleHelp, X, FileText, FileDown, Dices } from 'lucide-react';
+import { History, RotateCcw, Trash2, Trophy, Coins, Settings, Eraser, CircleHelp, X, FileDown, Dices, Crown } from 'lucide-react';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import confetti from 'canvas-confetti';
