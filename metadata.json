@@ -1,0 +1,5 @@
+{
+  "name": "Lucky Scorekeeper (招財計分)",
+  "description": "A festive score calculation app for Chinese New Year card games. Features custom numpad, auto-balancing for zero-sum games, and detailed history tracking.",
+  "requestFramePermissions": []
+}
