@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Player, Round, InputMode } from './types';
-import { INITIAL_PLAYERS, MAX_NAME_LENGTH, HORSE_YEAR_BLESSINGS } from './constants';
+import { INITIAL_PLAYERS, MAX_NAME_LENGTH } from './constants';
 import Setup from './components/Setup';
 import RoundInput from './components/RoundInput';
 import DealerRoulette from './components/DealerRoulette';
-import { History, RotateCcw, Trash2, Trophy, Coins, Settings, Eraser, CircleHelp, X, FileDown, Dices, Crown } from 'lucide-react';
+import { History, RotateCcw, Trash2, Trophy, Coins, Settings, Eraser, CircleHelp, X, FileDown, Dices } from 'lucide-react';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import confetti from 'canvas-confetti';
@@ -67,10 +67,6 @@ const App: React.FC = () => {
   }, [players, rounds, mode, dealerId]);
 
   // --- Logic Helpers ---
-
-  // Calculate current blessing title
-  const blessingIndex = Math.floor(rounds.length / 5) % HORSE_YEAR_BLESSINGS.length;
-  const currentTitle = HORSE_YEAR_BLESSINGS[blessingIndex];
 
   const currentSum: number = (Object.values(inputValues) as string[]).reduce((sum: number, val: string) => {
     const num = parseInt(val, 10);
@@ -422,68 +418,68 @@ const App: React.FC = () => {
       <div className="flex-1 flex flex-col min-h-0 z-10 relative">
         
         {/* Header Bar */}
-        <div className="flex-none flex items-center justify-between px-4 py-3 bg-black/10 backdrop-blur-sm border-b border-white/5">
-            <h1 className="text-xl font-bold text-yellow-400 tracking-wider drop-shadow-sm animate-fade-in key-{currentTitle}">
-                {currentTitle}
+        <div className="flex-none flex items-center justify-between px-2 sm:px-4 py-2 sm:py-3 bg-black/10 backdrop-blur-sm border-b border-white/5">
+            <h1 className="text-lg sm:text-xl font-bold text-yellow-400 tracking-wider drop-shadow-sm">
+                馬上有錢
             </h1>
             <div className="flex items-center gap-1 bg-black/30 rounded-full p-1 border border-white/10">
                 <button 
                     onClick={() => setShowHelp(true)} 
-                    className="p-2 text-yellow-400/80 hover:text-white hover:bg-white/10 rounded-full transition-all"
+                    className="p-1.5 sm:p-2 text-yellow-400/80 hover:text-white hover:bg-white/10 rounded-full transition-all"
                     title="使用說明書"
                 >
-                    <CircleHelp size={20} />
+                    <CircleHelp className="w-5 h-5" />
                 </button>
-                <div className="w-px h-4 bg-white/20 mx-1"></div>
+                <div className="w-px h-3 sm:h-4 bg-white/20 mx-1"></div>
                 <button 
                     onClick={handleOpenNameEdit} 
-                    className="p-2 text-yellow-400/80 hover:text-white hover:bg-white/10 rounded-full transition-all"
+                    className="p-1.5 sm:p-2 text-yellow-400/80 hover:text-white hover:bg-white/10 rounded-full transition-all"
                     title="修改玩家名稱"
                 >
-                    <Settings size={20} />
+                    <Settings className="w-5 h-5" />
                 </button>
 
                 <button 
                     onClick={() => setShowRoulette(true)} 
-                    className="p-2 text-yellow-400/80 hover:text-white hover:bg-white/10 rounded-full transition-all"
+                    className="p-1.5 sm:p-2 text-yellow-400/80 hover:text-white hover:bg-white/10 rounded-full transition-all"
                     title="轉盤決定莊家"
                 >
-                    <Dices size={20} />
+                    <Dices className="w-5 h-5" />
                 </button>
                 
                 {/* PDF & History Group */}
                 <div className="flex gap-1 ml-1 mr-2">
                     <button 
                         onClick={handleExportPDF} 
-                        className="p-2 text-green-400/90 hover:text-white hover:bg-green-500/20 rounded-full transition-all"
+                        className="p-1.5 sm:p-2 text-green-400/90 hover:text-white hover:bg-green-500/20 rounded-full transition-all"
                         title="匯出 PDF"
                     >
-                        <FileDown size={20} />
+                        <FileDown className="w-5 h-5" />
                     </button>
 
                     <button 
                         onClick={() => setShowHistory(!showHistory)} 
-                        className={`p-2 rounded-full transition-all ${showHistory ? 'bg-yellow-500 text-red-900 shadow-lg scale-105' : 'text-yellow-400/80 hover:text-white hover:bg-white/10'}`}
+                        className={`p-1.5 sm:p-2 rounded-full transition-all ${showHistory ? 'bg-yellow-500 text-red-900 shadow-lg scale-105' : 'text-yellow-400/80 hover:text-white hover:bg-white/10'}`}
                         title="歷史記錄"
                     >
-                        <History size={20} />
+                        <History className="w-5 h-5" />
                     </button>
                 </div>
                 
                 {/* Reset Button - Separated and highlighted */}
-                <div className="w-px h-4 bg-white/20 mx-1"></div>
+                <div className="w-px h-3 sm:h-4 bg-white/20 mx-1"></div>
                 <button 
                     onClick={handleReset} 
-                    className="p-2 text-red-400/80 hover:text-red-100 hover:bg-red-500/50 rounded-full transition-all"
+                    className="p-1.5 sm:p-2 text-red-400/80 hover:text-red-100 hover:bg-red-500/50 rounded-full transition-all"
                     title="重置整個遊戲"
                 >
-                    <RotateCcw size={20} />
+                    <RotateCcw className="w-5 h-5" />
                 </button>
             </div>
         </div>
 
         {/* Player Cards Area - Now fills the rest of the top space */}
-        <div className="flex-1 flex flex-row-reverse gap-2 p-3 pb-2 items-stretch z-10 relative overflow-hidden">
+        <div className="flex-1 flex flex-row-reverse gap-1 sm:gap-2 p-1 sm:p-3 pb-1 sm:pb-2 items-stretch z-10 relative overflow-hidden">
           
           {/* Watermark moved to background of this container */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10">
@@ -506,7 +502,7 @@ const App: React.FC = () => {
                   key={player.id} 
                   onClick={() => handlePlayerClick(player.id)}
                   className={`
-                    relative flex-1 flex flex-col items-center justify-center rounded-xl shadow-lg transition-all cursor-pointer select-none overflow-hidden py-4
+                    relative flex-1 flex flex-col items-center justify-center rounded-xl shadow-lg transition-all cursor-pointer select-none overflow-hidden py-2 sm:py-4
                     backdrop-blur-md
                     ${isActive 
                         ? 'bg-gradient-to-b from-yellow-900/60 to-black/40 ring-2 ring-yellow-400/70 shadow-[0_0_15px_rgba(250,204,21,0.3)] transform -translate-y-1' 
@@ -519,35 +515,35 @@ const App: React.FC = () => {
                   {/* Dealer Button (Top Left) */}
                   <button 
                     onClick={(e) => handleSetDealer(e, player.id)}
-                    className={`absolute top-2 left-2 z-20 w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs border transition-all ${
+                    className={`absolute top-1 left-1 sm:top-2 sm:left-2 z-20 w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-bold text-[10px] sm:text-xs border transition-all ${
                         isDealer 
                         ? 'bg-yellow-500 border-yellow-300 text-red-900 shadow-[0_0_10px_rgba(234,179,8,0.5)] scale-110' 
                         : 'bg-black/30 border-white/10 text-white/30 hover:bg-black/50 hover:text-white/70'
                     }`}
                   >
-                    {isDealer ? <span className="font-serif text-lg">莊</span> : <span className="text-xs">莊</span>}
+                    {isDealer ? <span className="font-serif text-sm sm:text-lg">莊</span> : <span className="text-[10px] sm:text-xs">莊</span>}
                   </button>
 
                   {/* Rank Badge (Top Right) */}
                   {isTopWinner && (
-                      <div className="absolute top-2 right-2 text-yellow-400 z-10 filter drop-shadow-md">
-                          <Trophy size={18} fill="currentColor" />
+                      <div className="absolute top-1 right-1 sm:top-2 sm:right-2 text-yellow-400 z-10 filter drop-shadow-md">
+                          <Trophy className="w-4 h-4 sm:w-[18px] sm:h-[18px]" fill="currentColor" />
                       </div>
                   )}
 
-                  {/* Top: Name - Enlarged by 3x (approx) */}
+                  {/* Top: Name - Responsive Text Size */}
                   <div className="w-full text-center mb-1 flex-1 flex items-center justify-center min-h-0">
-                    <h3 className={`text-6xl font-black leading-none break-all vertical-rl ${isActive ? 'text-yellow-300' : 'text-white/70'}`} style={{ wordBreak: 'break-all' }}>
+                    <h3 className={`text-4xl sm:text-6xl font-black leading-none break-all vertical-rl ${isActive ? 'text-yellow-300' : 'text-white/70'}`} style={{ wordBreak: 'break-all' }}>
                         {player.name}
                     </h3>
                   </div>
 
                   {/* Center: Content */}
-                  <div className="flex-none flex flex-col items-center justify-center w-full gap-2 py-4">
+                  <div className="flex-none flex flex-col items-center justify-center w-full gap-1 sm:gap-2 py-2 sm:py-4">
                     
-                    {/* Total Score */}
+                    {/* Total Score - Responsive Text Size */}
                     <div className={`transition-all duration-300 flex flex-col items-center justify-center ${hasInput ? 'scale-75 opacity-60' : 'scale-100'}`}>
-                        <div className={`text-3xl lg:text-4xl font-mono font-bold leading-none ${player.totalScore > 0 ? 'text-red-300' : 'text-gray-300'}`}>
+                        <div className={`text-2xl sm:text-3xl lg:text-4xl font-mono font-bold leading-none ${player.totalScore > 0 ? 'text-red-300' : 'text-gray-300'}`}>
                             {player.totalScore > 0 && '+'}{player.totalScore}
                         </div>
                     </div>
@@ -555,7 +551,7 @@ const App: React.FC = () => {
                     {/* Current Input */}
                     {hasInput && (
                         <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in duration-200 rounded-xl">
-                             <div className={`text-3xl lg:text-4xl font-mono font-bold drop-shadow-md ${
+                             <div className={`text-2xl sm:text-3xl lg:text-4xl font-mono font-bold drop-shadow-md ${
                                  currentInput.startsWith('-') ? 'text-green-400' : 'text-red-400'
                              }`}>
                                 {currentInput}
@@ -620,39 +616,8 @@ const App: React.FC = () => {
                             <li><strong>自動算分：</strong> 輸入完三家分數後，直接點擊第四家，系統會自動填入剩餘分數（平帳）。</li>
                         </ul>
                     </section>
-
-                    <section>
-                        <h3 className="text-lg font-bold text-yellow-500 mb-2 flex items-center gap-2">
-                            <Crown size={18} /> 2. 設定莊家
-                        </h3>
-                        <p className="text-sm text-gray-300">
-                            點擊玩家卡片左上角的 <span className="inline-block px-1.5 py-0.5 bg-yellow-500 text-red-900 text-xs rounded-full font-bold">莊</span> 按鈕，即可標記該玩家為本局莊家。
-                        </p>
-                        <p className="text-sm text-gray-300 mt-1">
-                            也可以點擊上方工具列的 <Dices size={16} className="inline"/> <strong>骰子圖示</strong> 開啟輪盤來隨機決定莊家！
-                        </p>
-                    </section>
                     
-                    <section>
-                        <h3 className="text-lg font-bold text-yellow-500 mb-2 flex items-center gap-2">
-                            <RotateCcw size={18} /> 3. 如何開啟新局？
-                        </h3>
-                        <p className="text-sm text-gray-300">
-                           當四家分數輸入完畢且<strong>合計為 0</strong> 時，下方的綠色大按鈕會亮起。
-                           點擊 <strong>「結算本局 (下一局)」</strong>，系統會自動儲存並清空輸入框，直接開始下一局。
-                        </p>
-                    </section>
-
-                    <section>
-                        <h3 className="text-lg font-bold text-yellow-500 mb-2 flex items-center gap-2">
-                            <FileDown size={18} /> 4. 匯出與歷史
-                        </h3>
-                        <p className="text-sm text-gray-300 mb-2">
-                            點擊右上角的 <FileDown size={16} className="inline mx-1" /> <strong>文件圖示</strong>，可下載戰績 PDF。<br/>
-                            點擊 <History size={16} className="inline mx-1" /> <strong>時鐘圖示</strong>，可查看每一局詳細分數。
-                        </p>
-                    </section>
-
+                    {/* Simplified help content for brevity */}
                     <div className="pt-4 text-center">
                         <button 
                             onClick={() => setShowHelp(false)} 

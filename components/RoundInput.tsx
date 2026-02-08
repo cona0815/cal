@@ -29,7 +29,7 @@ const RoundInput: React.FC<RoundInputProps> = ({
     <div className="flex flex-col bg-red-950 border-t-2 border-red-900 shadow-2xl">
       
       {/* Status Bar */}
-      <div className="flex items-center justify-between px-4 py-2 bg-red-900/50">
+      <div className="flex items-center justify-between px-3 py-1 sm:px-4 sm:py-2 bg-red-900/50">
         {/* Left: Clear Action */}
         <button 
             onClick={onClearAll}
